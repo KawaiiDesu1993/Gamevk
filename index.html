@@ -117,7 +117,28 @@
 
     <script type="text/javascript">
 
+      import "@vkontakte/vkui/dist/vkui.css";
+      import { PromoBanner } from '@vkontakte/vkui';
+
       vkBridge.send("VKWebAppInit", {});
+
+
+
+      function showBannerAd(){
+        const Banner = () => {
+          const [bannerData, setBannerData] = useState({});
+          useEffect(() => {
+            vkBridge.send('VKWebAppGetAds')
+              .then((bannerInfo) => {
+                setBannerData(bannerInfo);
+              });
+          }, []);
+          if (!bannerData) {
+            return null;
+          }
+          return <PromoBanner bannerData={bannerData} />;
+        }
+      }
 
       function auth(){
         vkBridge.send('VKWebAppGetUserInfo').then(_info =>{

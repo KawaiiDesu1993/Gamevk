@@ -127,6 +127,12 @@
         });
       }
 
+      function showInviteBox(){
+        vkBridge.send('VKWebAppShowInviteBox',{requestKey: "key-12345"}).
+          then(data => {
+          console.log(data);});
+      }
+
       function getUserData(){
         vkBridge.send("VKWebAppStorageGet",{"keys":["_save"]}).then(data =>{
         console.log(data);
